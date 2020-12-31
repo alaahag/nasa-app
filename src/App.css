@@ -1,10 +1,5 @@
-.App {
-  text-align: center;
-}
-
 .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+  height: 34px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -14,25 +9,60 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  background-color: #0f2431eb;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+@media only screen and (min-width: 601px) {
+  .App-header {
+    min-height: calc(100vh - 64px);
+  }
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@media only screen and (max-width: 600px) {
+  .App-header {
+    min-height: calc(100vh - 58px);
   }
-  to {
-    transform: rotate(360deg);
-  }
+}
+
+.notActiveLink, .activeLink {
+  text-decoration: none;
+  display: flex;
+  color: white;
+}
+
+.notActiveLink {
+  font-weight: normal;
+}
+
+.activeLink {
+  font-weight: bold;
+}
+
+.MuiPaper-root {
+  background-color: #2a4251 !important;
+  box-shadow: 1px 1px 2px #bababa, inset 0 0 1px #ffffff !important;
+  /*overflow: visible !important;*/
+}
+
+#movie_player {
+  padding-top: 56.25% !important;
+  position: relative;
+}
+
+.MuiPaper-root:hover {
+  box-shadow: 3px 3px 4px #bababa, inset 0 0 1px #ffffff !important;
+}
+
+.MuiCardHeader-subheader {
+  color: rgba(255, 253, 253, 0.54) !important;
+}
+
+.MuiBreadcrumbs-li:hover {
+  text-decoration: underline;
 }
