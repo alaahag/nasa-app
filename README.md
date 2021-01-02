@@ -1,3 +1,3 @@
 # nasa-app
 
-A Full-stack react project
+A Full-stack react NASA-project

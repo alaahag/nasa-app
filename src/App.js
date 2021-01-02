@@ -1,6 +1,6 @@
 import './App.css';
 import NavBar from './components/NavBar';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './components/Home';
 import Favorites from './components/Favorites';
 import Favorite from './components/Favorite';
@@ -16,10 +16,13 @@ function App() {
 		<Router>
 			<NavBar />
 			<div className="App-header">
-				<Route path="/" exact render={() => <Home /> } />
-				<Route path="/favorites" exact render={() => <Favorites /> } />
-				<Route path="/search" exact render={() => <Search /> } />
-				<Route path="/favorite/:id" exact render={({ match }) => <Favorite match={match} />}/>
+				<Switch>
+					<Route path="/" exact render={() => <Home /> } />
+					<Route path="/favorites" exact render={() => <Favorites /> } />
+					<Route path="/search" exact render={() => <Search /> } />
+					<Route path="/favorite/:id" exact render={({ match }) => <Favorite match={match} />}/>
+					<Route render={() => <h2>Page not found!</h2>} />
+				</Switch>
 			</div>
 		</Router>
 	);

@@ -1,12 +1,11 @@
-const express = require('express');
-const router = express.Router();
-const ImagesSchema = require('../models/ImagesSchema.js');
+const express = require('express'),
+router = express.Router(),
+ImagesSchema = require('../models/ImagesSchema.js');
 
-
-router.get('/sanity', function(req, res) {
-	//200 = OK
-	res.sendStatus(200);
-});
+// router.get('/sanity', function(req, res) {
+// 	//200 = OK
+// 	res.sendStatus(200);
+// });
 
 router.use(function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');

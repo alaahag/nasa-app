@@ -7,21 +7,23 @@ import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import Links from './Links';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
+        "& .MuiPaper-root": {
+			backgroundColor: "#2a4251 !important",
+			boxShadow: '5px 5px 5px 0px rgba(0,0,0,0.75)'
+		},
         flexGrow: 1
-    },
-    menuButton: {
-        marginRight: theme.spacing(2)
     },
     title: {
         flexGrow: 1,
         display: 'none',
         [theme.breakpoints.up('sm')]: {
             display: 'block'
-        }
+        },
+        fontWeight: "bold"
     },
     search: {
         position: 'relative',
@@ -64,27 +66,40 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function NavBar() {
-    const classes = useStyles();
+    const classes = useStyles(),
+    history = useHistory();
+    let searchText = "";
+
+    const validatePressEnter = (e) => {
+        e.preventDefault();
+        if (e.target.type === "text")
+            searchText = e.target.value;
+
+        if (e.key === "Enter" || e.target.type !== "text")
+            history.push(`/search?q=${searchText}`);
+    }
 
     return (
     <div className={classes.root}>
         <AppBar position="static">
             <Toolbar>
-                <IconButton edge="start" className={classes.menuButton} color="inherit">
-                    <img src="nasa.png" className="App-logo" alt="NASA" />
-                </IconButton>
+                <Link to="/" className={classes.inputRoot}>
+                    <IconButton edge="start" color="inherit">
+                        <img src="nasa.png" className="App-logo" alt="Logo" />
+                    </IconButton>
+                </Link>
                 <Typography className={classes.title} variant="h6" noWrap>
                     NASA-App
                 </Typography>
                 <Links />
                 <div className={classes.search}>
-                    <InputBase id="txtSearch" placeholder="Search…" classes={{root: classes.inputRoot, input: classes.inputInput}} inputProps={{ 'aria-label': 'search' }}/>
+                    <InputBase onKeyUp={validatePressEnter} id="txtSearch" placeholder="Search…" classes={{root: classes.inputRoot, input: classes.inputInput}} inputProps={{ 'aria-label': 'search' }}/>
                 </div>
-                <IconButton edge="end" color="inherit" aria-label="search">
-                    <Link to="/search" className={classes.inputRoot}>
+                <Link to="#" onClick={validatePressEnter} className={classes.inputRoot}>
+                    <IconButton title="Search" edge="end" color="inherit" aria-label="search">
                         <SearchIcon />
-                    </Link>
-                </IconButton>
+                    </IconButton>
+                </Link>
             </Toolbar>
         </AppBar>
     </div>

@@ -1,10 +1,11 @@
-const express = require('express');
-const api = require('./server/routes/api.js');
-const mongoose = require('mongoose');
-const path = require('path');
-const app = express();
-const PORT = process.env.PORT || 3001;
-const URI = process.env.MONGODB_URI || 'mongodb://localhost/NasaAppDB';
+const express = require('express'),
+api = require('./server/routes/api.js'),
+mongoose = require('mongoose'),
+path = require('path'),
+app = express(),
+PORT = process.env.PORT || 3001,
+URI = process.env.MONGODB_URI || 'mongodb://localhost/NasaAppDB';
+//NOTE: modify utils.js for PRODUCTION [default local server path: http://localhost:3001]
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());

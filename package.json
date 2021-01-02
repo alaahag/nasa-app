@@ -44,17 +44,17 @@
       "last 1 safari version"
     ]
   },
-  "description": "A Full-stack react project",
+  "description": "A Full-stack react NASA-project",
   "main": "server.js",
   "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/alaahag/nasa-app.git"
   },
-  "author": "",
+  "author": "Ala H.Yahya",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/alaahag/nasa-app/issues"
   },
-  "homepage": "https://github.com/alaahag/nasa-app#readme"
+  "homepage": "."
 }

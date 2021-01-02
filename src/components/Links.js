@@ -3,17 +3,24 @@ import { makeStyles } from '@material-ui/core/styles';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import HomeIcon from '@material-ui/icons/Home';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   links: {
     marginRight: theme.spacing(2),
     color: 'white'
   },
-  link: {
+  link_active: {
     display: 'flex',
     color: 'white',
-    textDecoration: 'none'
+    textDecoration: 'none',
+    fontWeight: "bold"
+  },
+  link_inactive: {
+    display: 'flex',
+    color: '#c8c3c3',
+    textDecoration: 'none',
+    fontWeight: "normal"
   },
   icon: {
     marginRight: theme.spacing(0.5),
@@ -22,24 +29,17 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function handleClick(event) {
-  event.currentTarget.className = "activeLink";
-}
-
-function handleBlur(event) {
-  event.currentTarget.className = "notActiveLink";
-}
-
 export default function Links() {
-  const classes = useStyles();
+  const classes = useStyles(),
+  location = useLocation();
 
   return (
-    <Breadcrumbs separator="&nbsp;&nbsp;" aria-label="breadcrumb" className={classes.links}>
-      <Link to="/" onBlur={handleBlur} onClick={handleClick} className={`${classes.link}`}>
+    <Breadcrumbs separator="/" aria-label="breadcrumb" className={classes.links}>
+      <Link to="/" className={location.pathname === '/' ? classes.link_active : classes.link_inactive}>
         <HomeIcon className={classes.icon} />
         Home
       </Link>
-      <Link to="/favorites" onBlur={handleBlur} onClick={handleClick} className={`${classes.link}`}>
+      <Link to="/favorites" className={location.pathname === '/favorites' ? classes.link_active : classes.link_inactive}>
         <FavoriteIcon className={classes.icon} />
         Favorites
       </Link>

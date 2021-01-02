@@ -1,22 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import CardView from './CardView';
-const axios = require('axios');
+import LoadingSpinner from './LoadingSpinner';
+import axios from 'axios';
+import utils from '../utils';
 
 export default function Favorite(props) {
-    const [data, setData] = useState([]);
+    const [data, setData] = useState([]),
+    [isLoading, setLoading] = useState(true);
 
     const fetchData = async() => {
         const id = props.match.params.id
-        const dData = await axios.get(`http://localhost:3001/image/${id}`);
+        const dData = await axios.get(`${utils.DEVELOPMENT_URL}/image/${id}`);
         setData(dData.data);
+        setLoading(false);
     }
 
-    useEffect(() => { fetchData(); });
+    useEffect(() => { fetchData(); }, []);
 
     return (
         <Grid  container direction="row" justify="center" alignItems="center">
-            {data ? <CardView data={data} /> : ""}
+            {
+                isLoading ? <LoadingSpinner /> : data.length === 0 ? <h2>No results found!</h2>
+                : <CardView data={data} />
+            }
         </Grid>
     )
 }

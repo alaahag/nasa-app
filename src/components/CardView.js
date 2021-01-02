@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -6,120 +6,166 @@ import CardMedia from '@material-ui/core/CardMedia';
 import IconButton from '@material-ui/core/IconButton';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ReactPlayer from 'react-player/youtube'
-import {useLocation} from "react-router-dom";
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
-import { Link } from 'react-router-dom';
-const axios = require('axios');
+import { useLocation, Link } from "react-router-dom";
+import ThreeSixtyIcon from '@material-ui/icons/ThreeSixty';
+import SnackBar from './SnackBar';
+import axios from 'axios';
+import utils from '../utils';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        width: 400,
-        height: 350,
+        "& .MuiPaper-root": {
+            backgroundColor: "#2a4251 !important",
+            boxShadow: '5px 5px 5px 0px rgba(0,0,0,0.75)'
+        }
+    },
+    full_image: {
+        width: 340,
+        height: 410,
         color: 'white',
         float: 'left',
-        margin: 15,
+        margin: 12,
         borderRadius: 10
     },
     like: {
         position: 'relative',
         float: 'left',
-        top: 5,
-        left: 6,
-        boxShadow: '1px 2px 3px grey'
+        top: 25,
+        left: 3,
+        width: 40,
+        height: 40,
+        boxShadow: '5px 5px 5px 0px rgba(0,0,0,0.75)'
     },
     media: {
-        width: 400,
-        height: '100%'
+        width: 340,
+        height: 'calc(100% - 96px)',
+        backgroundSize: '100% 100%'
     },
-    fullmedia: {
+    full_media: {
         width: '100%',
-        height: '50vh'
+        height: 480,
+        backgroundSize: '100% 100%'
     },
     header: {
-        height: 50,
-        margin: 0
+        height: 64,
+        margin: 0,
+        maxHeight: 64,
+        overflowY: 'auto',
+        textJustify: 'inter-word',
+        wordBreak: 'break-word',
+        textAlign: "center",
+        paddingTop: 16,
+        paddingBottom: 16,
+        marginLeft: 1,
+        marginRight: 1
     },
-    fullplayer: {
-        width: 640,
+    full_player: {
+        maxWidth: 640,
         color: 'white',
-        fontSize: '90%',
-        margin: 15
+        margin: 12
     },
-    fulltext: {
+    full_text: {
         color: 'white',
         float: 'left',
         textAlign: 'justify',
         textJustify: 'inter-word',
         wordBreak: 'break-word',
-        margin: 20
+        margin: 20,
+        fontSize: '20px'
+    },
+    back: {
+        color: 'white',
+        display: 'block',
+        textAlign: 'center',
+        marginBottom: 2
     }
 }));
 
-function Alert(props) {
-    return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
-
 export default function CardView(props) {
-    const [open, setOpen] = React.useState(false);
-    const [snackMessage, setSnackMessage] = React.useState('');
-    const [snackSeverity, setSnackSeverity] = React.useState('');
-
-    const handleSnackbarClick = (message, severity) => {
-        setSnackMessage(message);
-        setSnackSeverity(severity);
-        setOpen(true);
-    };
-
-    const handleClose = (event, reason) => {
-        if (reason === 'clickaway')
-            return;
-
-        setOpen(false);
-    };
-
-    const classes = useStyles();
-    const location = useLocation();
+    const classes = useStyles(),
+    [snack, setSnack] = useState({ message: "", severity: "" }),
+    [isDisposed, setDispose] = useState(false),
+    [isHiddenLike, setHideLike] = useState(false),
+    location = useLocation(),
+    isLocationHome = location.pathname === '/',
+    isLocationFavorites = location.pathname === '/favorites',
+    isLocationFavorite = location.pathname.includes('/favorite/'),
+    severityType = {
+        ERROR: 'error',
+        WARNING: 'warning',
+        INFO: 'info',
+        SUCCESS: 'success'
+    }
 
     const saveToDB = async (data) => {
-        await axios.post("http://localhost:3001/image", data);
-        handleSnackbarClick("Selected data has been saved successfully!", "success");
+        await axios.post(`${utils.DEVELOPMENT_URL}/image`, data);
+        setSnack({ message: "Selected data has been saved successfully!", severity: severityType.SUCCESS });
     }
 
     const removeFromDB = async (id) => {
-        await axios.delete(`http://localhost:3001/image/${id}`);
-        handleSnackbarClick("Selected data has been removed successfully!", "success");
+        await axios.delete(`${utils.DEVELOPMENT_URL}/image/${id}`);
+        setSnack({ message: "Selected data has been removed successfully!", severity: severityType.SUCCESS });
     }
 
     const handleLikes = (e) => {
-        if (location.pathname.includes('/favorite'))
+        if (isLocationFavorite || isLocationFavorites) {
             //remove from DB
             removeFromDB(props.data._id);
+            setDispose(true);
+        }
         else {
             //save to DB
             saveToDB({ title: props.data.title, url: props.data.url, explanation: props.data.explanation ? props.data.explanation : ""});
-            e.target.style.display = "none";
+            setHideLike(true);
         }
     }
 
     const handleFavClick = (e) => {
-        if (location.pathname !== '/favorites')
+        if (!isLocationFavorites)
             e.preventDefault();
     }
 
     return (
-        <Card className={location.pathname === '/' || location.pathname.includes('/favorite/') ? classes.fullplayer : classes.root}>
-            {location.pathname !== '/' ? <IconButton aria-label="add to favorites" className={classes.like} style={{color: location.pathname.includes('/favorite') ? '#7fd268' : 'white'}}  onClick={handleLikes}><FavoriteIcon /></IconButton> : ""}
-            <CardHeader className={classes.header} title={props.data.title}/>
-            {props.data.media_type === "video" ? <ReactPlayer url={props.data.url} /> : <Link onClick={handleFavClick} to={props.data._id ? `/favorite/${props.data._id}` : ""}> <CardMedia style={{cursor: location.pathname === '/favorites' ? 'pointer' : 'default'}} className={location.pathname.includes('/favorite/') ? classes.fullmedia : classes.media} image={props.data.url} title="NASA"/> </Link> }
-            <div className={classes.fulltext}>{props.data.explanation}</div>
-
-            <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-                <Alert onClose={handleClose} severity={snackSeverity}>
-                    {/* <Alert severity="success"  / "error" /> "warning" / "info" */}
-                    {snackMessage}
-                </Alert>
-            </Snackbar>
-        </Card>
-    );
+			<div>
+				{isDisposed ? null : (
+					<div className={classes.root}>
+						<Card className={isLocationHome || isLocationFavorite ? classes.full_player : classes.full_image }>
+							{!isLocationHome && !isHiddenLike ? (
+								<IconButton
+									className={classes.like}
+									style={{ color: isLocationFavorite || isLocationFavorites ? "#7fd268" : "white" }}
+									onClick={handleLikes} title="Favorite"
+								>
+									<FavoriteIcon />
+								</IconButton>
+							) : null}
+							<CardHeader
+								titleTypographyProps={{ variant: isLocationHome || isLocationFavorite ? "h5" : "h6" }}
+								className={classes.header} title={props.data.title}
+							/>
+							{props.data.media_type === "video" ? (
+								<ReactPlayer url={props.data.url} />
+							) : (
+								<Link onClick={handleFavClick} to={props.data._id ? `/favorite/${props.data._id}` : "#"}>
+									<CardMedia
+										style={{cursor: isLocationFavorites ? "pointer" : "default"}}
+										className={isLocationHome || isLocationFavorite ? classes.full_media : classes.media}
+										image={props.data.url} alt="img"
+									/>
+								</Link>
+							)}
+							<div className={classes.full_text}>{props.data.explanation}</div>
+							{isLocationFavorite ? (
+								<Link to="/favorites" className={classes.back}>
+									<IconButton title="Back to favorites" color="inherit" aria-label="back">
+										<ThreeSixtyIcon />
+									</IconButton>
+								</Link>
+							) : null}
+						</Card>
+					</div>
+				)}
+				<SnackBar message={snack.message} severity={snack.severity} />
+			</div>
+		);
 }
