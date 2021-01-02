@@ -28,7 +28,7 @@ export default function Search(){
         }
     }
 
-    useEffect(() => { fetchData(); }, [txtSearch ? txtSearch : ""]);
+    useEffect(() => { fetchData(); }, [txtSearch]);
 
     return (
         <Grid container direction="row" justify="center" alignItems="center">

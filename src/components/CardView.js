@@ -129,18 +129,18 @@ export default function CardView(props) {
 			<div>
 				{isDisposed ? null : (
 					<div className={classes.root}>
-						<Card className={isLocationHome || isLocationFavorite ? classes.full_player : classes.full_image }>
+						<Card className={isLocationHome || isLocationFavorite ? classes.full_player : classes.full_image}>
 							{!isLocationHome && !isHiddenLike ? (
 								<IconButton
 									className={classes.like}
-									style={{ color: isLocationFavorite || isLocationFavorites ? "#7fd268" : "white" }}
+									style={{color: isLocationFavorite || isLocationFavorites ? "#7fd268" : "white"}}
 									onClick={handleLikes} title="Favorite"
 								>
 									<FavoriteIcon />
 								</IconButton>
 							) : null}
 							<CardHeader
-								titleTypographyProps={{ variant: isLocationHome || isLocationFavorite ? "h5" : "h6" }}
+								titleTypographyProps={{variant: isLocationHome || isLocationFavorite ? "h5" : "h6"}}
 								className={classes.header} title={props.data.title}
 							/>
 							{props.data.media_type === "video" ? (

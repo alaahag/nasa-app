@@ -36,7 +36,7 @@
   line-height: 1.2 !important;
 }
 
-.MuiPaper-root, .MuiTypography-root {
+.MuiPaper-root, .MuiTypography-displayBlock {
   font-family: 'Acme', sans-serif !important;
   word-spacing: 3px;
 }
