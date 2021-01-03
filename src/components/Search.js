@@ -33,7 +33,8 @@ export default function Search(){
     return (
         <Grid container direction="row" justify="center" alignItems="center">
             {
-                isLoading ? <LoadingSpinner /> : data.length === 0 ? <h2>No results found!</h2>
+                isLoading ? <LoadingSpinner />
+                : data.length === 0 ? <h2>No results found!</h2>
                 : data.map(m => <CardView key={Math.random()} data={m} />)
             }
         </Grid>

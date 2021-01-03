@@ -19,7 +19,8 @@ export default function Home(){
     return (
         <Grid container direction="row" justify="center" alignItems="center">
             {
-                isLoading ? <LoadingSpinner /> : data.length === 0 ? <h2>No results found!</h2>
+                isLoading ? <LoadingSpinner />
+                : data.length === 0 ? <h2>No results found!</h2>
                 : <CardView key="1" data={data} />
             }
         </Grid>

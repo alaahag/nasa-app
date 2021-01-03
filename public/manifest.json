@@ -1,6 +1,6 @@
 {
-  "short_name": "NASA-App",
-  "name": "NASA-App",
+  "short_name": "NASApp",
+  "name": "NASApp",
   "icons": [
     {
       "src": "nasa.png",

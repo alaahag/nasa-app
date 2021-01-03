@@ -23,7 +23,8 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('sm')]: {
             display: 'block'
         },
-        fontWeight: "bold"
+        fontWeight: "bold",
+        fontFamily: "'Acme', sans-serif"
     },
     search: {
         position: 'relative',
@@ -85,11 +86,11 @@ export default function NavBar() {
             <Toolbar>
                 <Link to="/" className={classes.inputRoot}>
                     <IconButton edge="start" color="inherit">
-                        <img src="nasa.png" className="App-logo" alt="Logo" />
+                        <img src="/nasa.png" className="App-logo" alt="Logo" />
                     </IconButton>
                 </Link>
                 <Typography className={classes.title} variant="h6" noWrap>
-                    NASA-App
+                    NASApp
                 </Typography>
                 <Links />
                 <div className={classes.search}>

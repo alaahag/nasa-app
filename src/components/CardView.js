@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     },
     full_image: {
         width: 340,
-        height: 410,
+        height: 322,
         color: 'white',
         float: 'left',
         margin: 12,
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     },
     full_media: {
         width: '100%',
-        height: 480,
+        height: 426,
         backgroundSize: '100% 100%'
     },
     header: {
@@ -98,12 +98,12 @@ export default function CardView(props) {
     }
 
     const saveToDB = async (data) => {
-        await axios.post(`${utils.DEVELOPMENT_URL}/image`, data);
+        await axios.post(`${utils.FULL_URL}/image`, data);
         setSnack({ message: "Selected data has been saved successfully!", severity: severityType.SUCCESS });
     }
 
     const removeFromDB = async (id) => {
-        await axios.delete(`${utils.DEVELOPMENT_URL}/image/${id}`);
+        await axios.delete(`${utils.FULL_URL}/image/${id}`);
         setSnack({ message: "Selected data has been removed successfully!", severity: severityType.SUCCESS });
     }
 

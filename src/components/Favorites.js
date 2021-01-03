@@ -10,7 +10,7 @@ export default function Favorites() {
     [isLoading, setLoading] = useState(true);
 
     const fetchData = async() => {
-        const dData = await axios.get(`${utils.DEVELOPMENT_URL}/images`);
+        const dData = await axios.get(`${utils.FULL_URL}/images`);
         setData(dData.data);
         setLoading(false);
     }
@@ -20,7 +20,8 @@ export default function Favorites() {
     return (
         <Grid container direction="row" justify="center" alignItems="center">
             {
-                isLoading ? <LoadingSpinner /> : data.length === 0 ? <h2>No results found!</h2>
+                isLoading ? <LoadingSpinner />
+                : data.length === 0 ? <h2>No results found!</h2>
                 : data.map(m => <CardView key={m._id} data={m} />)
             }
         </Grid>

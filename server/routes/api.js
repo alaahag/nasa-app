@@ -7,6 +7,7 @@ ImagesSchema = require('../models/ImagesSchema.js');
 // 	res.sendStatus(200);
 // });
 
+//uncomment this Access-Control's router for PRODUCTION:
 router.use(function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');

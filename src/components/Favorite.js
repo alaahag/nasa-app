@@ -11,7 +11,7 @@ export default function Favorite(props) {
 
     const fetchData = async() => {
         const id = props.match.params.id
-        const dData = await axios.get(`${utils.DEVELOPMENT_URL}/image/${id}`);
+        const dData = await axios.get(`${utils.FULL_URL}/image/${id}`);
         setData(dData.data);
         setLoading(false);
     }
@@ -19,9 +19,10 @@ export default function Favorite(props) {
     useEffect(() => { fetchData(); }, []);
 
     return (
-        <Grid  container direction="row" justify="center" alignItems="center">
+        <Grid container direction="row" justify="center" alignItems="center">
             {
-                isLoading ? <LoadingSpinner /> : data.length === 0 ? <h2>No results found!</h2>
+                isLoading ? <LoadingSpinner />
+                : data.length === 0 ? <h2>No results found!</h2>
                 : <CardView data={data} />
             }
         </Grid>

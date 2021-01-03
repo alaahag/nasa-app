@@ -5,7 +5,10 @@ path = require('path'),
 app = express(),
 PORT = process.env.PORT || 3001,
 URI = process.env.MONGODB_URI || 'mongodb://localhost/NasaAppDB';
-//NOTE: modify utils.js for PRODUCTION [default local server path: http://localhost:3001]
+
+// NOTES FOR PRODUCTION:
+// modify utils.js [default local server path: http://localhost:3001]
+// uncomment the Access-Control's router in api.js
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -13,12 +16,11 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use(express.static(path.join(__dirname, 'build')));
 
-// app.use(express.static(path.join(__dirname, 'dist')));
-// app.get('/', function (req, res) {
-//     res.sendFile(path.join(__dirname, 'build', 'index.html'));
-// });
+app.get('/^(?!.*/api/).*$/', function (req, res) {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
-app.use('/', api);
+app.use('/api', api);
 
 mongoose.connect(URI, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true, connectTimeoutMS: 5000, serverSelectionTimeoutMS: 5000})
 .then(function(){
