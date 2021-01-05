@@ -20,11 +20,11 @@ export default function Favorite(props) {
 
     return (
         <Grid container direction="row" justify="center" alignItems="center">
-            {
-                isLoading ? <LoadingSpinner />
-                : data.length === 0 ? <h2>No results found!</h2>
-                : <CardView data={data} />
-            }
+        {
+            isLoading ? <LoadingSpinner />
+            : data.length === 0 ? <h2>No results found!</h2>
+            : <CardView data={data} />
+        }
         </Grid>
     )
 }

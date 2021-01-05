@@ -8,10 +8,6 @@ import Search from './components/Search';
 import React from 'react';
 
 function App() {
-	//API KEY: B3wt1pr4TCgQiWQBIURpAKJTriZ2ipvpfkafpSUn
-	//https://api.nasa.gov/planetary/apod?api_key=B3wt1pr4TCgQiWQBIURpAKJTriZ2ipvpfkafpSUn
-	//https://api.nasa.gov/
-	//https://images-api.nasa.gov/search?q=apollo&media_type=image
 	return (
 		<Router>
 			<NavBar />

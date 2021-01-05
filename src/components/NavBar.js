@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -68,13 +68,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function NavBar() {
     const classes = useStyles(),
-    history = useHistory();
-    let searchText = "";
+    history = useHistory(),
+    [searchText, setSearchText] = useState('');
 
     const validatePressEnter = (e) => {
         e.preventDefault();
         if (e.target.type === "text")
-            searchText = e.target.value;
+            setSearchText(e.target.value);
 
         if (e.key === "Enter" || e.target.type !== "text")
             history.push(`/search?q=${searchText}`);

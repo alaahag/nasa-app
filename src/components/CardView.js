@@ -95,16 +95,20 @@ export default function CardView(props) {
         WARNING: 'warning',
         INFO: 'info',
         SUCCESS: 'success'
+    },
+    messageType = {
+        SUCCESS_ADDED: 'Selected data has been saved successfully!',
+        SUCCESS_DELETED: 'Selected data has been removed successfully!'
     }
 
     const saveToDB = async (data) => {
         await axios.post(`${utils.FULL_URL}/image`, data);
-        setSnack({ message: "Selected data has been saved successfully!", severity: severityType.SUCCESS });
+        setSnack({ message: messageType.SUCCESS_ADDED, severity: severityType.SUCCESS });
     }
 
     const removeFromDB = async (id) => {
         await axios.delete(`${utils.FULL_URL}/image/${id}`);
-        setSnack({ message: "Selected data has been removed successfully!", severity: severityType.SUCCESS });
+        setSnack({ message: messageType.SUCCESS_DELETED, severity: severityType.SUCCESS });
     }
 
     const handleLikes = (e) => {
@@ -127,10 +131,10 @@ export default function CardView(props) {
 
     return (
 			<div>
-				{isDisposed ? null : (
+				{!isDisposed && (
 					<div className={classes.root}>
 						<Card className={isLocationHome || isLocationFavorite ? classes.full_player : classes.full_image}>
-							{!isLocationHome && !isHiddenLike ? (
+							{!isLocationHome && !isHiddenLike && (
 								<IconButton
 									className={classes.like}
 									style={{color: isLocationFavorite || isLocationFavorites ? "#7fd268" : "white"}}
@@ -138,7 +142,7 @@ export default function CardView(props) {
 								>
 									<FavoriteIcon />
 								</IconButton>
-							) : null}
+							)}
 							<CardHeader
 								titleTypographyProps={{variant: isLocationHome || isLocationFavorite ? "h5" : "h6"}}
 								className={classes.header} title={props.data.title}
@@ -155,13 +159,13 @@ export default function CardView(props) {
 								</Link>
 							)}
 							<div className={classes.full_text}>{props.data.explanation}</div>
-							{isLocationFavorite ? (
+							{isLocationFavorite && (
 								<Link to="/favorites" className={classes.back}>
 									<IconButton title="Back to favorites" color="inherit" aria-label="back">
 										<ThreeSixtyIcon />
 									</IconButton>
 								</Link>
-							) : null}
+							)}
 						</Card>
 					</div>
 				)}

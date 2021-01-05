@@ -10,6 +10,7 @@
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.6.0",
     "axios": "^0.21.1",
+    "dotenv": "^8.2.0",
     "elevation-pr": "^2.1.0",
     "mongoose": "^5.11.9",
     "react": "^17.0.1",
@@ -46,7 +47,9 @@
   },
   "description": "A Full-stack react NASA-project",
   "main": "server.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "cross-env": "^7.0.3"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/alaahag/nasa-app.git"

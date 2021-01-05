@@ -1,14 +1,14 @@
+require('dotenv').config();
 const express = require('express'),
 api = require('./server/routes/api.js'),
 mongoose = require('mongoose'),
 path = require('path'),
 app = express(),
 PORT = process.env.PORT || 3001,
-URI = process.env.MONGODB_URI || 'mongodb://localhost/NasaAppDB';
+URI = process.env.MONGODB_URI;
 
 // NOTES FOR PRODUCTION:
 // modify utils.js [default local server path: http://localhost:3001]
-// uncomment the Access-Control's router in api.js
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());

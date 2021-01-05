@@ -19,11 +19,11 @@ export default function Favorites() {
 
     return (
         <Grid container direction="row" justify="center" alignItems="center">
-            {
-                isLoading ? <LoadingSpinner />
-                : data.length === 0 ? <h2>No results found!</h2>
-                : data.map(m => <CardView key={m._id} data={m} />)
-            }
+        {
+            isLoading ? <LoadingSpinner />
+            : data.length === 0 ? <h2>No results found!</h2>
+            : data.map(m => <CardView key={m._id} data={m} />)
+        }
         </Grid>
     )
 }
