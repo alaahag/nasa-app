@@ -47,9 +47,7 @@
   },
   "description": "A Full-stack react NASA-project",
   "main": "server.js",
-  "devDependencies": {
-    "cross-env": "^7.0.3"
-  },
+  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/alaahag/nasa-app.git"

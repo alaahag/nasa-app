@@ -10,9 +10,15 @@ export default function Favorite(props) {
     [isLoading, setLoading] = useState(true);
 
     const fetchData = async() => {
-        const id = props.match.params.id
-        const dData = await axios.get(`${utils.FULL_URL}/image/${id}`);
-        setData(dData.data);
+        try {
+            const id = props.match.params.id
+            const dData = await axios.get(`${utils.FULL_URL}/image/${id}`);
+            setData(dData.data);
+        }
+        catch {
+            console.log("Failed connecting to the server.");
+        }
+
         setLoading(false);
     }
 
@@ -23,7 +29,7 @@ export default function Favorite(props) {
         {
             isLoading ? <LoadingSpinner />
             : data.length === 0 ? <h2>No results found!</h2>
-            : <CardView data={data} />
+            : <CardView key="1" data={data} />
         }
         </Grid>
     )

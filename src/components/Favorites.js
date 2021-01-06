@@ -10,8 +10,14 @@ export default function Favorites() {
     [isLoading, setLoading] = useState(true);
 
     const fetchData = async() => {
-        const dData = await axios.get(`${utils.FULL_URL}/images`);
-        setData(dData.data);
+        try {
+            const dData = await axios.get(`${utils.FULL_URL}/images`);
+            setData(dData.data);
+        }
+        catch {
+            console.log("Failed connecting to the server.");
+        }
+
         setLoading(false);
     }
 

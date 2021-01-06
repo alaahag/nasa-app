@@ -10,8 +10,14 @@ export default function Home(){
     [isLoading, setLoading] = useState(true);
 
     const fetchData = async() => {
-        const dData = await axios.get(`${utils.FULL_URL}/APOD`);
-        setData(dData.data);
+        try {
+            const dData = await axios.get(`${utils.FULL_URL}/APOD`);
+            setData(dData.data);
+        }
+        catch {
+            console.log("Failed connecting to the server.");
+        }
+
         setLoading(false);
     }
 
