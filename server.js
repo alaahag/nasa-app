@@ -5,10 +5,7 @@ mongoose = require('mongoose'),
 path = require('path'),
 app = express(),
 PORT = process.env.PORT || 5000,
-URI = process.env.MONGODB_URI;
-
-// NOTES FOR PRODUCTION:
-// modify utils.js [default local server path: 'http://localhost:5000' to '']
+URI = process.env.MONGODB_URI || 'mongodb://localhost/NasaAppDB';
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());

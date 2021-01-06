@@ -3,7 +3,6 @@ import CardView from './CardView';
 import Grid from '@material-ui/core/Grid';
 import LoadingSpinner from './LoadingSpinner';
 import axios from 'axios';
-import utils from '../utils';
 
 export default function Home(){
     const [data, setData] = useState([]),
@@ -11,7 +10,7 @@ export default function Home(){
 
     const fetchData = async() => {
         try {
-            const dData = await axios.get(`${utils.FULL_URL}/APOD`);
+            const dData = await axios.get('/api/APOD');
             setData(dData.data);
         }
         catch {

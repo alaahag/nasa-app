@@ -10,7 +10,6 @@ import { useLocation, Link } from "react-router-dom";
 import ThreeSixtyIcon from '@material-ui/icons/ThreeSixty';
 import SnackBar from './SnackBar';
 import axios from 'axios';
-import utils from '../utils';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -102,12 +101,12 @@ export default function CardView(props) {
     }
 
     const saveToDB = async (data) => {
-        await axios.post(`${utils.FULL_URL}/image`, data);
+        await axios.post('/api/image', data);
         setSnack({ message: messageType.SUCCESS_ADDED, severity: severityType.SUCCESS });
     }
 
     const removeFromDB = async (id) => {
-        await axios.delete(`${utils.FULL_URL}/image/${id}`);
+        await axios.delete(`/api/image/${id}`);
         setSnack({ message: messageType.SUCCESS_DELETED, severity: severityType.SUCCESS });
     }
 

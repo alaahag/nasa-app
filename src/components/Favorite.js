@@ -3,7 +3,6 @@ import Grid from '@material-ui/core/Grid';
 import CardView from './CardView';
 import LoadingSpinner from './LoadingSpinner';
 import axios from 'axios';
-import utils from '../utils';
 
 export default function Favorite(props) {
     const [data, setData] = useState([]),
@@ -12,7 +11,7 @@ export default function Favorite(props) {
     const fetchData = async() => {
         try {
             const id = props.match.params.id
-            const dData = await axios.get(`${utils.FULL_URL}/image/${id}`);
+            const dData = await axios.get(`/api/image/${id}`);
             setData(dData.data);
         }
         catch {
