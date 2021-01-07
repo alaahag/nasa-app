@@ -1,5 +1,7 @@
 .App-logo {
   height: 34px;
+  transform: scale(1.2);
+  transition: transform 0.5s;
 }
 
 .App-header {
@@ -36,7 +38,27 @@
   line-height: 1.2 !important;
 }
 
+.App-logo:hover {
+  transform: scale(1.2);
+}
+
 .MuiPaper-root, .MuiTypography-displayBlock {
   font-family: 'Acme', sans-serif !important;
   word-spacing: 3px;
+}
+
+.MuiIconButton-label {
+  transition: transform 0.3s;
+}
+
+.MuiIconButton-label:hover {
+  transform: scale(1.05);
+}
+
+.MuiSvgIcon-root {
+  font-size: 1.3em !important;
+}
+
+.MuiGrid-root {
+  transition: all 2.0s !important;
 }

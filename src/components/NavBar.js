@@ -24,7 +24,10 @@ const useStyles = makeStyles((theme) => ({
             display: 'block'
         },
         fontWeight: "bold",
-        fontFamily: "'Acme', sans-serif"
+        fontFamily: "'Acme', sans-serif",
+        '&:hover': {
+            transform: 'scaleY(1.05)'
+        }
     },
     search: {
         position: 'relative',
