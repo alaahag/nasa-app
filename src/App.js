@@ -17,7 +17,7 @@ function App() {
 					<Route path="/favorites" exact render={() => <Favorites /> } />
 					<Route path="/search" exact render={() => <Search /> } />
 					<Route path="/favorite/:id" exact render={({ match }) => <Favorite match={match} />}/>
-					<Route render={() => <h2>Page not found!</h2>} />
+					{/* <Route render={() => <h2>Page not found!</h2>} /> */}
 				</Switch>
 			</div>
 		</Router>
