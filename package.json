@@ -21,9 +21,13 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "node server.js",
-    "test": "react-scripts test",
+    "start-client": "react-scripts start",
+    "build": "rm -rf build && react-scripts build",
+    "test-client": "react-scripts test",
+    "test": "jest --runInBand server",
     "eject": "react-scripts eject",
+    "start": "node server.js",
+    "watch": "nodemon --ignore public --ignore src --ignore server/public",
     "review": "node node_modules/elevation-pr/index.js"
   },
   "eslintConfig": {
