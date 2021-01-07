@@ -12,10 +12,13 @@ app.use(express.json());
 
 app.use(express.static(path.join(__dirname, 'node_modules')));
 
-app.use(express.static(path.join(__dirname, 'build')));
-app.get('/^(?!.*/api/).*$/', function (req, res) {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
+console.log(process.env.NODE_ENV)
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static(path.join(__dirname, 'build')));
+    app.get('/^(?!.*/api/).*$/', function (req, res) {
+        res.sendFile(path.join(__dirname, 'build', 'index.html'));
+    });
+}
 
 app.use('/api', api);
 
