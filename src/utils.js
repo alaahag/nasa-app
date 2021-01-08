@@ -1,4 +1,4 @@
-class utils {
+export default class utils {
     static API_PATH = '/api';
     static SnackBarProps = {
         SeverityType: {
@@ -17,4 +17,4 @@ class utils {
     };
 }
 
-module.exports = utils;
+//module.exports = utils;

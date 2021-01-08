@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import CardView from './CardView';
 import LoadingSpinner from './LoadingSpinner';
 import axios from 'axios';
-import { API_PATH, SnackBarProps } from '../utils';
+import utils from '../utils';
 import SnackBar from './SnackBar';
 
 export default function Favorite(props) {
@@ -14,11 +14,11 @@ export default function Favorite(props) {
     const fetchData = async() => {
         try {
             const id = props.match.params.id
-            const dData = await axios.get(`${API_PATH}/image/${id}`);
+            const dData = await axios.get(`${utils.API_PATH}/image/${id}`);
             setData(dData.data);
         }
         catch {
-            setSnack({ message: SnackBarProps.MessageType.CONNECTION_ERROR, severity: SnackBarProps.SeverityType.ERROR });
+            setSnack({ message: utils.SnackBarProps.MessageType.CONNECTION_ERROR, severity: utils.SnackBarProps.SeverityType.ERROR });
         }
         finally {
             setLoading(false);

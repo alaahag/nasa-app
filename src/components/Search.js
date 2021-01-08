@@ -5,7 +5,7 @@ import LoadingSpinner from './LoadingSpinner';
 import { useLocation } from "react-router-dom";
 import axios from 'axios';
 import SnackBar from './SnackBar';
-import { SnackBarProps } from '../utils';
+import utils from '../utils';
 
 export default function Search(){
     const [data, setData] = useState([]),
@@ -31,7 +31,7 @@ export default function Search(){
                 setData(parsedData);
             }
             catch {
-                setSnack({ message: SnackBarProps.MessageType.CONNECTION_ERROR, severity: SnackBarProps.SeverityType.ERROR });
+                setSnack({ message: utils.SnackBarProps.MessageType.CONNECTION_ERROR, severity: utils.SnackBarProps.SeverityType.ERROR });
             }
             finally {
                 setLoading(false);

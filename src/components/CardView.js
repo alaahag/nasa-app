@@ -9,7 +9,7 @@ import ReactPlayer from 'react-player/youtube'
 import { useLocation, Link } from "react-router-dom";
 import ThreeSixtyIcon from '@material-ui/icons/ThreeSixty';
 import SnackBar from './SnackBar';
-import { SnackBarProps } from '../utils';
+import utils from '../utils';
 import axios from 'axios';
 
 const useStyles = makeStyles(() => ({
@@ -94,11 +94,11 @@ export default function CardView(props) {
     const saveToDB = async (data) => {
         try {
             await axios.post('/api/image', data);
-            setSnack({ message: SnackBarProps.MessageType.SUCCESS_SAVED, severity: SnackBarProps.SeverityType.SUCCESS });
+            setSnack({ message: utils.SnackBarProps.MessageType.SUCCESS_SAVED, severity: utils.SnackBarProps.SeverityType.SUCCESS });
             return true;
         }
         catch {
-            setSnack({ message: SnackBarProps.MessageType.FAILED_SAVING, severity: SnackBarProps.SeverityType.WARNING });
+            setSnack({ message: utils.SnackBarProps.MessageType.FAILED_SAVING, severity: utils.SnackBarProps.SeverityType.WARNING });
             return false;
         }
     }
@@ -106,11 +106,11 @@ export default function CardView(props) {
     const removeFromDB = async (id) => {
         try {
             await axios.delete(`/api/image/${id}`);
-            setSnack({ message: SnackBarProps.MessageType.SUCCESS_REMOVED, severity: SnackBarProps.SeverityType.SUCCESS });
+            setSnack({ message: utils.SnackBarProps.MessageType.SUCCESS_REMOVED, severity: utils.SnackBarProps.SeverityType.SUCCESS });
             return true;
         }
         catch {
-            setSnack({ message: SnackBarProps.MessageType.FAILED_DELETING, severity: SnackBarProps.SeverityType.WARNING });
+            setSnack({ message: utils.SnackBarProps.MessageType.FAILED_DELETING, severity: utils.SnackBarProps.SeverityType.WARNING });
             return false;
         }
     }

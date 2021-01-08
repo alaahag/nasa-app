@@ -3,7 +3,7 @@ import CardView from './CardView';
 import Grid from '@material-ui/core/Grid';
 import LoadingSpinner from './LoadingSpinner';
 import axios from 'axios';
-import { API_PATH, SnackBarProps } from '../utils';
+import utils from '../utils';
 import SnackBar from './SnackBar';
 
 export default function Home(){
@@ -13,11 +13,11 @@ export default function Home(){
 
     const fetchData = async() => {
         try {
-            const dData = await axios.get(`${API_PATH}/APOD`);
+            const dData = await axios.get(`${utils.API_PATH}/APOD`);
             setData(dData.data);
         }
         catch {
-            setSnack({ message: SnackBarProps.MessageType.CONNECTION_ERROR, severity: SnackBarProps.SeverityType.ERROR });
+            setSnack({ message: utils.SnackBarProps.MessageType.CONNECTION_ERROR, severity: utils.SnackBarProps.SeverityType.ERROR });
         }
         finally {
             setLoading(false);
