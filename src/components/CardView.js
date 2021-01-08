@@ -9,9 +9,10 @@ import ReactPlayer from 'react-player/youtube'
 import { useLocation, Link } from "react-router-dom";
 import ThreeSixtyIcon from '@material-ui/icons/ThreeSixty';
 import SnackBar from './SnackBar';
+import { SnackBarProps } from '../utils';
 import axios from 'axios';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     root: {
         "& .MuiPaper-root": {
             backgroundColor: "#2a4251 !important",
@@ -88,38 +89,44 @@ export default function CardView(props) {
     location = useLocation(),
     isLocationHome = location.pathname === '/',
     isLocationFavorites = location.pathname === '/favorites',
-    isLocationFavorite = location.pathname.includes('/favorite/'),
-    severityType = {
-        ERROR: 'error',
-        WARNING: 'warning',
-        INFO: 'info',
-        SUCCESS: 'success'
-    },
-    messageType = {
-        SUCCESS_ADDED: 'Selected data has been saved successfully!',
-        SUCCESS_DELETED: 'Selected data has been removed successfully!'
-    }
+    isLocationFavorite = location.pathname.includes('/favorite/');
 
     const saveToDB = async (data) => {
-        await axios.post('/api/image', data);
-        setSnack({ message: messageType.SUCCESS_ADDED, severity: severityType.SUCCESS });
+        try {
+            await axios.post('/api/image', data);
+            setSnack({ message: SnackBarProps.MessageType.SUCCESS_SAVED, severity: SnackBarProps.SeverityType.SUCCESS });
+            return true;
+        }
+        catch {
+            setSnack({ message: SnackBarProps.MessageType.FAILED_SAVING, severity: SnackBarProps.SeverityType.WARNING });
+            return false;
+        }
     }
 
     const removeFromDB = async (id) => {
-        await axios.delete(`/api/image/${id}`);
-        setSnack({ message: messageType.SUCCESS_DELETED, severity: severityType.SUCCESS });
+        try {
+            await axios.delete(`/api/image/${id}`);
+            setSnack({ message: SnackBarProps.MessageType.SUCCESS_REMOVED, severity: SnackBarProps.SeverityType.SUCCESS });
+            return true;
+        }
+        catch {
+            setSnack({ message: SnackBarProps.MessageType.FAILED_DELETING, severity: SnackBarProps.SeverityType.WARNING });
+            return false;
+        }
     }
 
     const handleLikes = (e) => {
         if (isLocationFavorite || isLocationFavorites) {
             //remove from DB
-            removeFromDB(props.data._id);
-            setDispose(true);
+            const isOK = removeFromDB(props.data._id);
+            if (isOK)
+                setDispose(true);
         }
         else {
             //save to DB
-            saveToDB({ title: props.data.title, url: props.data.url, explanation: props.data.explanation ? props.data.explanation : ""});
-            setHideLike(true);
+            const isOK = saveToDB({ title: props.data.title, url: props.data.url, explanation: props.data.explanation ? props.data.explanation : "" });
+            if (isOK)
+                setHideLike(true);
         }
     }
 
@@ -136,14 +143,14 @@ export default function CardView(props) {
 							{!isLocationHome && !isHiddenLike && (
 								<IconButton
 									className={classes.like}
-									style={{color: isLocationFavorite || isLocationFavorites ? "#7fd268" : "white"}}
+									style={{ color: isLocationFavorite || isLocationFavorites ? "#7fd268" : "white" }}
 									onClick={handleLikes} title="Favorite"
 								>
 									<FavoriteIcon />
 								</IconButton>
 							)}
 							<CardHeader
-								titleTypographyProps={{variant: isLocationHome || isLocationFavorite ? "h5" : "h6"}}
+								titleTypographyProps={{ variant: isLocationHome || isLocationFavorite ? "h5" : "h6" }}
 								className={classes.header} title={props.data.title}
 							/>
 							{props.data.media_type === "video" ? (
@@ -151,7 +158,7 @@ export default function CardView(props) {
 							) : (
 								<Link onClick={handleFavClick} to={props.data._id ? `/favorite/${props.data._id}` : "#"}>
 									<CardMedia
-										style={{cursor: isLocationFavorites ? "pointer" : "default"}}
+										style={{ cursor: isLocationFavorites ? "pointer" : "default" }}
 										className={isLocationHome || isLocationFavorite ? classes.full_media : classes.media}
 										image={props.data.url} alt="img"
 									/>

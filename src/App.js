@@ -13,11 +13,11 @@ function App() {
 			<NavBar />
 			<div className="App-header">
 				<Switch>
-					<Route path="/" exact render={() => <Home /> } />
-					<Route path="/favorites" exact render={() => <Favorites /> } />
-					<Route path="/search" exact render={() => <Search /> } />
-					<Route path="/favorite/:id" exact render={({ match }) => <Favorite match={match} />}/>
-					<Route render={() => <h2>Page not found!</h2>} />
+					<Route path="/" exact render={ () => <Home /> } />
+					<Route path="/favorites" exact render={ () => <Favorites /> } />
+					<Route path="/favorite/:id" exact render={ ({ match }) => <Favorite match={match} />}/>
+					<Route path="/search" exact render={ () => <Search /> } />
+					<Route path="*" render={ () => <h2>Page not found!</h2> } />
 				</Switch>
 			</div>
 		</Router>

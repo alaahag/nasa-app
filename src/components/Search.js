@@ -4,11 +4,14 @@ import Grid from '@material-ui/core/Grid';
 import LoadingSpinner from './LoadingSpinner';
 import { useLocation } from "react-router-dom";
 import axios from 'axios';
+import SnackBar from './SnackBar';
+import { SnackBarProps } from '../utils';
 
 export default function Search(){
     const [data, setData] = useState([]),
     [isLoading, setLoading] = useState(false),
-    txtSearch = new URLSearchParams(useLocation().search).get('q');
+    txtSearch = new URLSearchParams(useLocation().search).get('q'),
+    [snack, setSnack] = useState({ message: "", severity: "" });
 
     const fetchData = async() => {
         if (txtSearch) {
@@ -28,10 +31,11 @@ export default function Search(){
                 setData(parsedData);
             }
             catch {
-                console.log("Failed connecting to the server.");
+                setSnack({ message: SnackBarProps.MessageType.CONNECTION_ERROR, severity: SnackBarProps.SeverityType.ERROR });
             }
-
-            setLoading(false);
+            finally {
+                setLoading(false);
+            }
         }
     }
 
@@ -44,6 +48,7 @@ export default function Search(){
                 : data.length === 0 ? <h2>No results found!</h2>
                 : data.map(m => <CardView key={Math.random()} data={m} />)
             }
+            <SnackBar message={snack.message} severity={snack.severity} />
         </Grid>
     )
 }

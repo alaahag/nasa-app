@@ -3,33 +3,38 @@ import Grid from '@material-ui/core/Grid';
 import CardView from './CardView';
 import LoadingSpinner from './LoadingSpinner';
 import axios from 'axios';
+import { API_PATH, SnackBarProps } from '../utils';
+import SnackBar from './SnackBar';
 
 export default function Favorite(props) {
     const [data, setData] = useState([]),
-    [isLoading, setLoading] = useState(true);
+    [isLoading, setLoading] = useState(true),
+    [snack, setSnack] = useState({ message: "", severity: "" });
 
     const fetchData = async() => {
         try {
             const id = props.match.params.id
-            const dData = await axios.get(`/api/image/${id}`);
+            const dData = await axios.get(`${API_PATH}/image/${id}`);
             setData(dData.data);
         }
         catch {
-            console.log("Failed connecting to the server.");
+            setSnack({ message: SnackBarProps.MessageType.CONNECTION_ERROR, severity: SnackBarProps.SeverityType.ERROR });
         }
-
-        setLoading(false);
+        finally {
+            setLoading(false);
+        }
     }
 
     useEffect(() => { fetchData(); }, []);
 
     return (
         <Grid container direction="row" justify="center" alignItems="center">
-        {
-            isLoading ? <LoadingSpinner />
-            : data.length === 0 ? <h2>No results found!</h2>
-            : <CardView key="1" data={data} />
-        }
+            {
+                isLoading ? <LoadingSpinner />
+                : data.length === 0 ? <h2>No results found!</h2>
+                : <CardView key="1" data={data} />
+            }
+            <SnackBar message={snack.message} severity={snack.severity} />
         </Grid>
     )
 }

@@ -21,7 +21,7 @@ build/
 .env.production.local
 .env.production
 .env.staging
-
+.eslintcache
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

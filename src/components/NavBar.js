@@ -89,7 +89,7 @@ export default function NavBar() {
             <Toolbar>
                 <Link to="/" className={classes.inputRoot}>
                     <IconButton edge="start" color="inherit">
-                        <img src="/nasa.png" className="App-logo" alt="Logo" />
+                        <img src={"/nasa.png"} className="App-logo" alt="Logo" />
                     </IconButton>
                 </Link>
                 <Typography className={classes.title} variant="h6" noWrap>
@@ -97,7 +97,7 @@ export default function NavBar() {
                 </Typography>
                 <Links />
                 <div className={classes.search}>
-                    <InputBase onKeyUp={validatePressEnter} id="txtSearch" placeholder="Search…" classes={{root: classes.inputRoot, input: classes.inputInput}} inputProps={{ 'aria-label': 'search' }}/>
+                    <InputBase onKeyUp={validatePressEnter} id="txtSearch" placeholder="Search…" classes={{ root: classes.inputRoot, input: classes.inputInput }} inputProps={{ 'aria-label': 'search' }}/>
                 </div>
                 <Link to="#" onClick={validatePressEnter} className={classes.inputRoot}>
                     <IconButton title="Search" edge="end" color="inherit" aria-label="search">
