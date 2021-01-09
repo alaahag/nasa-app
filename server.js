@@ -15,11 +15,11 @@ app.use(express.static(path.join(__dirname, 'build')));
 app.use(API_PATH, api);
 
 //render index.html for every route except /api/
-app.get(new RegExp(`^(?!.*${API_PATH}/).*$`, 'i'), function (req, res) {
+app.get('/*', function (req, res, next) {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-mongoose.connect(URI, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true, connectTimeoutMS: 5000, serverSelectionTimeoutMS: 5000 } )
+mongoose.connect(URI, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true, connectTimeoutMS: 5000, serverSelectionTimeoutMS: 5000 })
 .then(function(){
     app.listen(PORT, function(){
         console.log(`Server is up and running on port: ${PORT}`);
