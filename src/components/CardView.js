@@ -9,8 +9,8 @@ import ReactPlayer from 'react-player/youtube'
 import { useLocation, Link } from "react-router-dom";
 import ThreeSixtyIcon from '@material-ui/icons/ThreeSixty';
 import SnackBar from './SnackBar';
-import utils from '../utils';
 import axios from 'axios';
+const utils = require('../utils');
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -115,7 +115,7 @@ export default function CardView(props) {
         }
     }
 
-    const handleLikes = (e) => {
+    const handleLikes = () => {
         if (isLocationFavorite || isLocationFavorites) {
             //remove from DB
             const isOK = removeFromDB(props.data._id);

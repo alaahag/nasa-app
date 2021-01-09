@@ -5,7 +5,7 @@ import LoadingSpinner from './LoadingSpinner';
 import { useLocation } from "react-router-dom";
 import axios from 'axios';
 import SnackBar from './SnackBar';
-import utils from '../utils';
+const utils = require('../utils');
 
 export default function Search(){
     const [data, setData] = useState([]),

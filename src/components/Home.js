@@ -3,8 +3,8 @@ import CardView from './CardView';
 import Grid from '@material-ui/core/Grid';
 import LoadingSpinner from './LoadingSpinner';
 import axios from 'axios';
-import utils from '../utils';
 import SnackBar from './SnackBar';
+const utils = require('../utils');
 
 export default function Home(){
     const [data, setData] = useState([]),

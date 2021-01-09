@@ -3,8 +3,8 @@ import Grid from '@material-ui/core/Grid';
 import CardView from './CardView';
 import LoadingSpinner from './LoadingSpinner';
 import axios from 'axios';
-import utils from '../utils';
 import SnackBar from './SnackBar';
+const utils = require('../utils');
 
 export default function Favorite(props) {
     const [data, setData] = useState([]),

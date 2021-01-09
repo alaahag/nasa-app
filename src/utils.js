@@ -1,4 +1,4 @@
-export default class utils {
+module.exports = class utils {
     static API_PATH = '/api';
     static SnackBarProps = {
         SeverityType: {
@@ -15,6 +15,4 @@ export default class utils {
             CONNECTION_ERROR: 'Failed connecting to the remote server!'
         }
     };
-}
-
-//module.exports = utils;
+};
