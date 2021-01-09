@@ -5,7 +5,7 @@ import LoadingSpinner from './LoadingSpinner';
 import { useLocation } from "react-router-dom";
 import axios from 'axios';
 import SnackBar from './SnackBar';
-import { SNACKBAR_PROPS }  from '../Consts';
+import { SNACKBAR_PROPS }  from '../Constants';
 
 export default function Search(){
     const [data, setData] = useState([]),
@@ -13,33 +13,34 @@ export default function Search(){
     txtSearch = new URLSearchParams(useLocation().search).get('q'),
     [snack, setSnack] = useState({ message: "", severity: "" });
 
-    const fetchData = async() => {
-        if (txtSearch) {
-            setLoading(true);
+    useEffect(() => {
+        const fetchData = async() => {
+            if (txtSearch) {
+                setLoading(true);
 
-            try {
-                let dData = await axios.get(`https://images-api.nasa.gov/search?q=${txtSearch}&media_type=image`);
+                try {
+                    let dData = await axios.get(`https://images-api.nasa.gov/search?q=${txtSearch}&media_type=image`);
+                    const parsedData = dData.data.collection.items.map (m => {
+                        const imgID = m.href.slice('https://images-assets.nasa.gov/image/'.length, m.href.length-16);
+                        return ({
+                            url: `https://images-assets.nasa.gov/image/${imgID}/${imgID}~thumb.jpg`,
+                            title: m.data[0].title,
+                            explanation: m.data[0].description
+                        })
+                    });
+                    setData(parsedData);
+                }
+                catch {
+                    setSnack({ message: SNACKBAR_PROPS.MessageType.CONNECTION_ERROR, severity: SNACKBAR_PROPS.SeverityType.ERROR });
+                }
+                finally {
+                    setLoading(false);
+                }
+            }
+        };
 
-                const parsedData = dData.data.collection.items.map (m => {
-                    const imgID = m.href.slice('https://images-assets.nasa.gov/image/'.length, m.href.length-16);
-                    return ({
-                        url: `https://images-assets.nasa.gov/image/${imgID}/${imgID}~thumb.jpg`,
-                        title: m.data[0].title,
-                        explanation: m.data[0].description
-                    })
-                });
-                setData(parsedData);
-            }
-            catch {
-                setSnack({ message: SNACKBAR_PROPS.MessageType.CONNECTION_ERROR, severity: SNACKBAR_PROPS.SeverityType.ERROR });
-            }
-            finally {
-                setLoading(false);
-            }
-        }
-    }
-
-    useEffect(() => { fetchData(); }, [txtSearch]);
+        fetchData();
+    }, [txtSearch]);
 
     return (
         <Grid container direction="row" justify="center" alignItems="center">

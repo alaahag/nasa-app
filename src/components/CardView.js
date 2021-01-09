@@ -7,12 +7,11 @@ import IconButton from '@material-ui/core/IconButton';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ReactPlayer from 'react-player/youtube'
 import { useLocation, Link } from "react-router-dom";
-import ThreeSixtyIcon from '@material-ui/icons/ThreeSixty';
 import SnackBar from './SnackBar';
 import axios from 'axios';
-import { SNACKBAR_PROPS }  from '../Consts';
+import { SNACKBAR_PROPS }  from '../Constants';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
     root: {
         "& .MuiPaper-root": {
             backgroundColor: "#2a4251 !important",
@@ -21,7 +20,7 @@ const useStyles = makeStyles(() => ({
     },
     full_image: {
         width: 340,
-        height: 322,
+        height: 320,
         color: 'white',
         float: 'left',
         margin: 12,
@@ -31,7 +30,7 @@ const useStyles = makeStyles(() => ({
         position: 'relative',
         float: 'left',
         top: 25,
-        left: 3,
+        left: 5,
         width: 40,
         height: 40,
         boxShadow: '5px 5px 5px 0px rgba(0,0,0,0.75)'
@@ -47,22 +46,19 @@ const useStyles = makeStyles(() => ({
         backgroundSize: '100% 100%'
     },
     header: {
-        height: 64,
+        height: 72,
         margin: 0,
-        maxHeight: 64,
+        padding: 12,
+        maxHeight: 72,
         overflowY: 'auto',
         textJustify: 'inter-word',
         wordBreak: 'break-word',
-        textAlign: "center",
-        paddingTop: 16,
-        paddingBottom: 16,
-        marginLeft: 1,
-        marginRight: 1
+        textAlign: "center"
     },
     full_player: {
         maxWidth: 640,
         color: 'white',
-        margin: 12
+        margin: theme.spacing(2)
     },
     full_text: {
         color: 'white',
@@ -70,14 +66,8 @@ const useStyles = makeStyles(() => ({
         textAlign: 'justify',
         textJustify: 'inter-word',
         wordBreak: 'break-word',
-        margin: 20,
+        margin: theme.spacing(2),
         fontSize: '20px'
-    },
-    back: {
-        color: 'white',
-        display: 'block',
-        textAlign: 'center',
-        marginBottom: 2
     }
 }));
 
@@ -165,13 +155,6 @@ export default function CardView(props) {
 								</Link>
 							)}
 							<div className={classes.full_text}>{props.data.explanation}</div>
-							{isLocationFavorite && (
-								<Link to="/favorites" className={classes.back}>
-									<IconButton title="Back to favorites" color="inherit" aria-label="back">
-										<ThreeSixtyIcon />
-									</IconButton>
-								</Link>
-							)}
 						</Card>
 					</div>
 				)}

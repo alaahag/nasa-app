@@ -79,7 +79,7 @@ export default function NavBar() {
         if (e.target.type === "text")
             setSearchText(e.target.value);
 
-        if (e.key === "Enter" || e.target.type !== "text")
+        if (searchText !== "" && (e.key === "Enter" || e.target.type !== "text"))
             history.push(`/search?q=${searchText}`);
     }
 

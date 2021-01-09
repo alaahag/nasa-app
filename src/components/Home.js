@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import LoadingSpinner from './LoadingSpinner';
 import axios from 'axios';
 import SnackBar from './SnackBar';
-import { API_PATH, SNACKBAR_PROPS }  from '../Consts';
+import { API_PATH, SNACKBAR_PROPS }  from '../Constants';
 
 export default function Home(){
     const [data, setData] = useState([]),

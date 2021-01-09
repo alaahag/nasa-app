@@ -22,7 +22,7 @@
   },
   "scripts": {
     "start-client": "react-scripts start",
-    "build": "rm -rf build && react-scripts build",
+    "build": "react-scripts build",
     "test-client": "react-scripts test",
     "test": "jest --runInBand server",
     "eject": "react-scripts eject",

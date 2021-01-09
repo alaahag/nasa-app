@@ -48,17 +48,13 @@
 }
 
 .MuiIconButton-label {
-  transition: transform 0.3s;
+  transition: transform 0.2s;
 }
 
 .MuiIconButton-label:hover {
-  transform: scale(1.05);
+  transform: scale(1.1);
 }
 
 .MuiSvgIcon-root {
   font-size: 1.3em !important;
-}
-
-.MuiGrid-root {
-  transition: all 2.0s !important;
 }

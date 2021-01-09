@@ -3,14 +3,9 @@
   "name": "NASApp",
   "icons": [
     {
-      "src": "nasa.png",
+      "src": "logo.png",
       "type": "image/png",
       "sizes": "192x192"
-    },
-    {
-      "src": "nasa.png",
-      "type": "image/png",
-      "sizes": "512x512"
     }
   ],
   "start_url": ".",
