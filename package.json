@@ -12,7 +12,6 @@
     "@testing-library/user-event": "^12.6.0",
     "axios": "^0.21.1",
     "dotenv": "^8.2.0",
-    "elevation-pr": "^2.1.0",
     "mongoose": "^5.11.9",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -27,9 +26,7 @@
     "test-client": "react-scripts test",
     "test": "jest --runInBand server",
     "eject": "react-scripts eject",
-    "start": "node server.js",
-    "watch": "nodemon --ignore public --ignore src --ignore server/public",
-    "review": "node node_modules/elevation-pr/index.js"
+    "start": "node server.js"
   },
   "eslintConfig": {
     "extends": [
