@@ -89,7 +89,7 @@ export default function NavBar() {
             <Toolbar>
                 <Link to="/" className={classes.inputRoot}>
                     <IconButton edge="start" color="inherit">
-                        <img src={"/nasa.png"} className="App-logo" alt="Logo" />
+                        <img src={process.env.PUBLIC_URL + '/logo.png'} className="App-logo" alt="Logo" />
                     </IconButton>
                 </Link>
                 <Typography className={classes.title} variant="h6" noWrap>

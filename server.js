@@ -6,7 +6,7 @@ path = require('path'),
 app = express(),
 PORT = process.env.PORT || 5000,
 URI = process.env.MONGODB_URI || 'mongodb://localhost/NasaAppDB',
-API_PATH = require('./src/utils').API_PATH;
+API_PATH = require('./src/Consts').API_PATH;
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());

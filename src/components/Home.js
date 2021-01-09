@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import LoadingSpinner from './LoadingSpinner';
 import axios from 'axios';
 import SnackBar from './SnackBar';
-const utils = require('../utils');
+import { API_PATH, SNACKBAR_PROPS }  from '../Consts';
 
 export default function Home(){
     const [data, setData] = useState([]),
@@ -13,11 +13,11 @@ export default function Home(){
 
     const fetchData = async() => {
         try {
-            const dData = await axios.get(`${utils.API_PATH}/APOD`);
+            const dData = await axios.get(`${API_PATH}/APOD`);
             setData(dData.data);
         }
         catch {
-            setSnack({ message: utils.SnackBarProps.MessageType.CONNECTION_ERROR, severity: utils.SnackBarProps.SeverityType.ERROR });
+            setSnack({ message: SNACKBAR_PROPS.MessageType.CONNECTION_ERROR, severity: SNACKBAR_PROPS.SeverityType.ERROR });
         }
         finally {
             setLoading(false);
