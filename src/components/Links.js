@@ -34,7 +34,7 @@ export default function Links() {
 	location = useLocation();
 
 	return (
-		<Breadcrumbs separator="/" aria-label="breadcrumb" className={classes.links}>
+		<Breadcrumbs separator=' ' aria-label="breadcrumb" className={classes.links}>
 			<Link to="/" className={location.pathname === '/' ? classes.link_active : classes.link_inactive}>
 				<HomeIcon className={classes.icon} />
 				Home
