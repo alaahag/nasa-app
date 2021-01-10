@@ -88,7 +88,7 @@ export default function CardView(props) {
             return true;
         }
         catch {
-            setSnack({ message: SNACKBAR_PROPS.MessageType.FAILED_SAVING, severity: SNACKBAR_PROPS.SeverityType.WARNING });
+            setSnack({ message: SNACKBAR_PROPS.MessageType.FAILED_SAVING, severity: SNACKBAR_PROPS.SeverityType.ERROR });
             return false;
         }
     }
@@ -100,7 +100,7 @@ export default function CardView(props) {
             return true;
         }
         catch {
-            setSnack({ message: SNACKBAR_PROPS.MessageType.FAILED_DELETING, severity: SNACKBAR_PROPS.SeverityType.WARNING });
+            setSnack({ message: SNACKBAR_PROPS.MessageType.FAILED_DELETING, severity: SNACKBAR_PROPS.SeverityType.ERROR });
             return false;
         }
     }

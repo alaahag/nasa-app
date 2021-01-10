@@ -34,7 +34,7 @@ export default function Favorite(props) {
                 setData(dData.data);
             }
             catch {
-                setSnack({ message: SNACKBAR_PROPS.MessageType.CONNECTION_ERROR, severity: SNACKBAR_PROPS.SeverityType.ERROR });
+                setSnack({ message: SNACKBAR_PROPS.MessageType.FAILED_GETTING, severity: SNACKBAR_PROPS.SeverityType.ERROR });
             }
             finally {
                 setLoading(false);

@@ -3,7 +3,6 @@ axios = require('axios'),
 router = express.Router(),
 ImagesSchema = require('../models/ImagesSchema.js');
 
-
 router.post('/image', async function(req, res) {
 	try {
 		const imageSchema = new ImagesSchema({ ...req.body });
@@ -11,8 +10,7 @@ router.post('/image', async function(req, res) {
 		res.send(imageSchema);
 	}
 	catch (error) {
-		console.log(error);
-		res.send(error);
+		res.status(400).send({ error: error.message });
 	}
 });
 
@@ -22,8 +20,7 @@ router.get('/images', async function(req, res) {
 		res.send(imageSchema);
 	}
 	catch (error) {
-		console.log(error);
-		res.send(error);
+		res.status(400).send({ error: error.message });
 	}
 });
 
@@ -33,8 +30,7 @@ router.get('/image/:id', async function(req, res) {
 		res.send(imageSchema);
 	}
 	catch (error) {
-		console.log(error);
-		res.send(error);
+		res.status(400).send({ error: error.message });
 	}
 });
 
@@ -44,8 +40,7 @@ router.delete('/image/:id', async function(req, res) {
 		res.send(imageSchema);
 	}
 	catch (error) {
-		console.log(error);
-		res.send(error);
+		res.status(400).send({ error: error.message });
 	}
 });
 
@@ -55,11 +50,8 @@ router.get('/APOD', async function(req, res) {
 		res.send(dData.data);
 	}
 	catch (error) {
-		console.log(error);
-		res.send(error);
+		res.status(400).send({ error: error.message });
 	}
 });
-
-
 
 module.exports = router;

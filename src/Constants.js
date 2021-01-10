@@ -11,6 +11,7 @@ const SNACKBAR_PROPS = {
         SUCCESS_REMOVED: 'Selected data has been removed successfully!',
         FAILED_SAVING: 'Failed saving data!',
         FAILED_DELETING: 'Failed deleting data!',
+        FAILED_GETTING: 'Failed loading data!',
         CONNECTION_ERROR: 'Failed connecting to the remote server!'
     }
 };

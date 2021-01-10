@@ -10,12 +10,11 @@ API_PATH = require('./src/Constants').API_PATH;
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'node_modules')));
-app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static('node_modules'));
+app.use(express.static('build'));
 app.use(API_PATH, api);
 
-//render index.html for every route except /api/
-app.get('/*', function (req, res, next) {
+app.get('/*', function (req, res) {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
