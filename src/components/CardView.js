@@ -9,7 +9,7 @@ import ReactPlayer from 'react-player/youtube'
 import { useLocation, Link } from "react-router-dom";
 import SnackBar from './SnackBar';
 import axios from 'axios';
-import { SNACKBAR_PROPS }  from '../Constants';
+import { SNACKBAR_PROPS, API_PATH }  from '../Constants';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -83,7 +83,7 @@ export default function CardView(props) {
 
     const saveToDB = async (data) => {
         try {
-            await axios.post('/api/image', data);
+            await axios.post(`${API_PATH}/image`, data);
             setSnack({ message: SNACKBAR_PROPS.MessageType.SUCCESS_SAVED, severity: SNACKBAR_PROPS.SeverityType.SUCCESS });
             return true;
         }
@@ -95,7 +95,7 @@ export default function CardView(props) {
 
     const removeFromDB = async (id) => {
         try {
-            await axios.delete(`/api/image/${id}`);
+            await axios.delete(`${API_PATH}/image/${id}`);
             setSnack({ message: SNACKBAR_PROPS.MessageType.SUCCESS_REMOVED, severity: SNACKBAR_PROPS.SeverityType.SUCCESS });
             return true;
         }
@@ -126,39 +126,39 @@ export default function CardView(props) {
     }
 
     return (
-			<div>
-				{!isDisposed && (
-					<div className={classes.root}>
-						<Card className={isLocationHome || isLocationFavorite ? classes.full_player : classes.full_image}>
-							{!isLocationHome && !isHiddenLike && (
-								<IconButton
-									className={classes.like}
-									style={{ color: isLocationFavorite || isLocationFavorites ? "#7fd268" : "white" }}
-									onClick={handleLikes} title="Favorite"
-								>
-									<FavoriteIcon />
-								</IconButton>
-							)}
-							<CardHeader
-								titleTypographyProps={{ variant: isLocationHome || isLocationFavorite ? "h5" : "h6" }}
-								className={classes.header} title={props.data.title}
-							/>
-							{props.data.media_type === "video" ? (
-								<ReactPlayer url={props.data.url} />
-							) : (
-								<Link onClick={handleFavClick} to={props.data._id ? `/favorite/${props.data._id}` : "#"}>
-									<CardMedia
-										style={{ cursor: isLocationFavorites ? "pointer" : "default" }}
-										className={isLocationHome || isLocationFavorite ? classes.full_media : classes.media}
-										image={props.data.url} alt="img"
-									/>
-								</Link>
-							)}
-							<div className={classes.full_text}>{props.data.explanation}</div>
-						</Card>
-					</div>
-				)}
-				<SnackBar message={snack.message} severity={snack.severity} />
-			</div>
-		);
+        <div>
+            {!isDisposed && (
+                <div className={classes.root}>
+                    <Card className={isLocationHome || isLocationFavorite ? classes.full_player : classes.full_image}>
+                        {!isLocationHome && !isHiddenLike && (
+                            <IconButton
+                                className={classes.like}
+                                style={{ color: isLocationFavorite || isLocationFavorites ? "#7fd268" : "white" }}
+                                onClick={handleLikes} title="Favorite"
+                            >
+                                <FavoriteIcon />
+                            </IconButton>
+                        )}
+                        <CardHeader
+                            titleTypographyProps={{ variant: isLocationHome || isLocationFavorite ? "h5" : "h6" }}
+                            className={classes.header} title={props.data.title}
+                        />
+                        {props.data.media_type === "video" ? (
+                            <ReactPlayer url={props.data.url} />
+                        ) : (
+                            <Link onClick={handleFavClick} to={props.data._id ? `/favorite/${props.data._id}` : "#"}>
+                                <CardMedia
+                                    style={{ cursor: isLocationFavorites ? "pointer" : "default" }}
+                                    className={isLocationHome || isLocationFavorite ? classes.full_media : classes.media}
+                                    image={props.data.url} alt="img"
+                                />
+                            </Link>
+                        )}
+                        <div className={classes.full_text}>{props.data.explanation}</div>
+                    </Card>
+                </div>
+            )}
+            <SnackBar message={snack.message} severity={snack.severity} />
+        </div>
+    );
 }
