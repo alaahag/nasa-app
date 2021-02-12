@@ -2,7 +2,7 @@
 
 A Full-stack react project about astronomy.
 
-**Technology stack**: React, Express, Mongoose, Node, external APIs & Material UI.
+**Technology stack**: React, NodeJS, Express, Mongoose, external APIs & Material UI.
 
 **Screenshots**:
 ![Untitled](https://user-images.githubusercontent.com/4573039/107792494-e49fdc00-6d5d-11eb-9329-861d360b7fbf.jpg)
